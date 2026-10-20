@@ -1,28 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
-use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    
     public function index()
     {
-        $categories = Category::all();
-
-        return view('categories.index', compact('categories'));
+        $categories = Category::latest()->paginate(10);
+        return view('master-data.category.create', compact('categories'));
     }
 
+    
     public function create()
     {
-        return view('categories.create');
+        return view('master-data.category.create');
     }
 
-    public function store(StoreCategoryRequest $request)
+
+    public function store(Request $request)
+    
     {
-        Category::create($request->validated());
-
-        return redirect()->route('categories.index');
+    $validated = $request->validate([
+        'name' => 'required|string|max:100|unique:categories,name',
+        'description' => 'nullable|string|max:255',
+    ]);
+    
+    Category::create($validated);
+ 
+    return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
+
 }
+

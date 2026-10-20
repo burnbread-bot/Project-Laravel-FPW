@@ -8,7 +8,7 @@ class StoreProductRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->role === 'admin';
     }
 
     public function rules(): array
@@ -22,4 +22,12 @@ class StoreProductRequest extends FormRequest
             'stock' => 'required|integer|min:0',
         ];
     }
+
+        public function messages(): array
+    {
+                return [
+            'code.unique' => 'Kode produk sudah digunakan, gunakan kode lain.',
+        ];
+    }
+
 }

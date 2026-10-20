@@ -53,4 +53,5 @@ Route::middleware('auth')->group(function () {
             return 'Halaman Riwayat Transaksi Saya';
         })->name('pos.history');
     });
+
 });
