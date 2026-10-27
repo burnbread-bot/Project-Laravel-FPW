@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-        protected $fillable = ['category_id', 'code', 'name', 'unit', 'price', 'stock'];
+    protected $fillable = ['category_id', 'code', 'name', 'unit', 'price', 'stock'];
 
     protected function formattedPrice(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => 'Rp ' . number_format($attributes['price'], 0, ',', '.')
+            get: fn (mixed $value, array $attributes) => 'Rp '.number_format($attributes['price'], 0, ',', '.')
         );
     }
- 
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
- 
+
     public function transactionDetails()
     {
         return $this->hasMany(TransactionDetail::class);
@@ -30,5 +30,4 @@ class Product extends Model
     {
         return $this->hasMany(Order::class);
     }
-
 }

@@ -23,11 +23,10 @@ class StoreProductRequest extends FormRequest
         ];
     }
 
-        public function messages(): array
+    public function messages(): array
     {
-                return [
+        return [
             'code.unique' => 'Kode produk sudah digunakan, gunakan kode lain.',
         ];
     }
-
 }

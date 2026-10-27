@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\PosController;
+use Illuminate\Support\Facades\Route;
 
 // Route Publik
 Route::get('/', function () {
@@ -24,9 +24,9 @@ Route::middleware('guest')->group(function () {
 
 // Route Terproteksi (Harus Login)
 Route::middleware('auth')->group(function () {
-    
+
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
-    
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
