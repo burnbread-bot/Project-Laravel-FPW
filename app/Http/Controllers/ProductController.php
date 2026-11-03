@@ -63,8 +63,17 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $product = Product::findOrFail($id);
+        $product->load(['transactionDetails.transaction']);
 
-        return view('master-data.product.show', compact('product'));
+        $totalTerjual = $product->transactionDetails->sum('qty');
+
+        $riwayat = $product->transactionDetails()
+            ->with('transaction')
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return view('master-data.product.show', compact('product', 'totalTerjual', 'riwayat'));
     }
 
     /**

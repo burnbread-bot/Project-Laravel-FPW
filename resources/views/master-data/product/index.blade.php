@@ -68,6 +68,9 @@
                                     </td>
                                     <td class="px-4 py-2 text-sm text-center space-x-2">
                                         <a href="{{ route('products.edit', $product) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">Ubah</a>
+
+                                        <a href="{{ route('products.show', $product) }}" class="text-gray-600">Detail</a>
+
                                         <form action="{{ route('products.destroy', $product) }}" method="POST" class="inline" onsubmit="return confirm('Hapus produk ini?')">
                                             @csrf
                                             @method('DELETE')
