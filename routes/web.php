@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Route Publik
@@ -27,10 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Khusus Admin
     Route::middleware('role:admin')->group(function () {
         Route::resource('categories', CategoryController::class);
@@ -39,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/users', function () {
             return 'Halaman Kelola Akun Kasir (Khusus Admin)';
         });
+        Route::get('/reports/sales/export', [ReportController::class, 'export'])->name('report.export');
     });
 
     // Khusus Admin & Kasir
